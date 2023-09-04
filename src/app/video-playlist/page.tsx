@@ -1,18 +1,18 @@
 'use client'
 
-import { useRef, useEffect } from "react";
-import videojs from "video.js";
-import videojsPlaylistPlugin from "videojs-playlist";
-import "video.js/dist/video-js.css";
+import { useRef, useEffect } from "react"
+import videojs from "video.js"
+import "video.js/dist/video-js.css"
 
-videojs.registerPlugin('playlist', videojsPlaylistPlugin);
+const videojsPlaylistPlugin = require("videojs-playlist")
+console.log('plugin', videojsPlaylistPlugin)
 
 export default function Video() {
   const videoRef = useRef(null);
 
   useEffect(() => {
     if (videoRef.current) {
-      const player = videojs(videoRef.current)
+      const player:any = videojs(videoRef.current, {})
       console.log('player', player)
 
       player.playlist([{
