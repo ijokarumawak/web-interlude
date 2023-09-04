@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "npm install --frozen-lockfile && jest",
+    "test:update": "jest -u",
+    "test:coverage": "jest --collect-coverage"
   },
   "dependencies": {
     "@pixi/react": "^7.1.1",
@@ -25,5 +28,9 @@
     "typescript": "5.2.2",
     "video.js": "8.5.2",
     "videojs-playlist": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "29.6.1",
+    "jest-environment-jsdom": "29.6.1"
   }
 }
