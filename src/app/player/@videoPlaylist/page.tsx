@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react"
 import dynamic from "next/dynamic"
 
-const VideoPlaylist = dynamic(() => import("../../components/VideoPlaylist"))
+const VideoPlaylist = dynamic(() => import("../../../components/VideoPlaylist"))
 
 export default function Page() {
   return (
