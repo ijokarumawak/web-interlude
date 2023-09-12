@@ -133,8 +133,9 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
         y={150}
         style={style}
       />
-      {sessions.filter(x => x.isActive((10 - count) * 1000)).map(x => {return (
+      {sessions.filter(x => x.isActive((10 - count) * 1000)).map((x, i) => {return (
         <Text
+          key={i}
           text={x.name}
           x={x.x()}
           y={x.y()}
