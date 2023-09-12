@@ -3,6 +3,44 @@ import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
 import * as PIXI from "pixi.js"
 import { sound } from "@pixi/sound"
 import { ContentProperties } from './ContentProperties'
+import { Session } from 'inspector'
+
+class SessionInfo {
+  name:string
+  age:number
+  setAge:any
+  fromPos:[number, number]
+  toPos:[number, number]
+  fromMillis:number
+  moveMillis:number
+
+  constructor(name:string, age:[number, any], fromPos:[number, number], toPos:[number, number], fromMillis:number, moveMillis:number) {
+    this.name = name
+    this.age = age[0]
+    this.setAge = age[1]
+    this.fromPos = fromPos
+    this.toPos = toPos
+    this.fromMillis = fromMillis
+    this.moveMillis = moveMillis
+  }
+
+  isActive(currentMillis:number):boolean {
+    return currentMillis > this.fromMillis
+  }
+
+  x():number {
+    // Bezier
+    const t = Math.min(this.age, this.moveMillis) / this.moveMillis
+    const b = t * t * (3.0 - (2.0 * t))
+    const d = (this.toPos[0] - this.fromPos[0]) * b
+    return this.age < this.moveMillis ? this.fromPos[0] + d : this.toPos[0]
+  }
+
+  y():number {
+    return this.fromPos[1]
+  }
+}
+
 
 const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => {
 
@@ -12,6 +50,11 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   if(!sound.exists('bgm')) sound.add('bgm', '/sounds/jimit-big-beats.m4a')
   if(!sound.exists('boing')) sound.add('boing', '/sounds/examples_resources_boing.mp3')
   if(!sound.exists('chime')) sound.add('chime', '/sounds/examples_resources_chime.mp3')
+
+  const sessions:SessionInfo[] = new Array()
+  sessions.push(new SessionInfo('間もなく', useState(0.0), [300, -200], [-120, -200], 3000, 300))
+  sessions.push(new SessionInfo('CM', useState(0.0), [-300, -50], [90, -50], 4000, 300))
+  sessions.push(new SessionInfo('入ります', useState(0.0), [300, 80], [-200, 80], 5000, 300))
 
   // Load 時に bgm を開始
   useEffect(() => {
@@ -39,6 +82,15 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
 
   // PIXI フレーム更新時の処理
   useTick((delta) => {
+
+    for(let i = 0; i < sessions.length; i++) {
+      const session = sessions[i]
+      if (!session.isActive((10 - count) * 1000)) {
+        continue
+      }
+      session.setAge(session.age + (delta * (1000 / 60)))
+    }
+
     // 開始直後、終了間際は静止
     if ((rotation * (180/Math.PI) % 360 <= 10 && count <= 1)) {
       setRotation(0)
@@ -81,9 +133,17 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
         y={150}
         style={style}
       />
+      {sessions.filter(x => x.isActive((10 - count) * 1000)).map(x => {return (
+        <Text
+          text={x.name}
+          x={x.x()}
+          y={x.y()}
+          style={style}
+        />
+      )})}
     </>
-  );
-};
+  )
+}
 
 const PixiApp: React.FC<ContentProperties> = (props:ContentProperties) => {
   return (
