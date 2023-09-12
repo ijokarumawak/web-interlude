@@ -8,7 +8,7 @@ export default function Anim() {
   return (
     <div>
       <h1>Pixi App in NextJs</h1>
-      <PixiApp />
+      <PixiApp onEnded={() => {}}/>
     </div>
   )
 }

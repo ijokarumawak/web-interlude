@@ -2,10 +2,8 @@
 
 import { useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { OnEnded } from '../../components/VideoPlaylist'
 
 const VideoPlaylist = dynamic(() => import('../../components/VideoPlaylist'))
-const onEnded:OnEnded = () => {}
 
 export default function Page() {
   return (
