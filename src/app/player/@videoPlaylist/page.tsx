@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <div>
       <h1>Video playlist</h1>
-      <VideoPlaylist />
+      <VideoPlaylist onEnded={() => {setContent('animation')}}/>
       <p>次の finish をクリックするビデオを終了してとアニメーションを再生</p>
       <button onClick={() => {setContent('animation')}}>finish</button>
     </div>

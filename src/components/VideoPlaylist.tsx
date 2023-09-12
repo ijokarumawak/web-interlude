@@ -1,13 +1,18 @@
 'use client'
 
-import { useRef, useEffect } from "react"
+import React, { useRef, useEffect } from "react"
 import videojs from "video.js"
 import "video.js/dist/video-js.css"
 
 const videojsPlaylistPlugin = require("videojs-playlist")
 console.log('plugin', videojsPlaylistPlugin)
 
-const VideoPlaylist = () => {
+export type OnEnded = () => void
+interface PlaylistProperties {
+  onEnded: OnEnded
+}
+
+export const VideoPlaylist: React.FC<PlaylistProperties> = (props:PlaylistProperties) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -17,33 +22,46 @@ const VideoPlaylist = () => {
 
       player.playlist([{
         sources: [{
-          src: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+          src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm01-gmo.mp4',
           type: 'video/mp4'
         }],
         poster: 'https://media.w3.org/2010/05/sintel/poster.png'
       }, {
         sources: [{
-          src: 'https://vjs.zencdn.net/v/oceans.mp4',
+          src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm02-line.mp4',
           type: 'video/mp4'
         }],
         poster: 'https://www.videojs.com/img/poster.jpg'
       }, {
         sources: [{
-          src: 'https://media.w3.org/2010/05/video/movie_300.mp4',
+          src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm03-mirantis.mp4',
+          type: 'video/mp4'
+        }],
+        poster: 'https://media.w3.org/2010/05/video/poster.png'
+      }, {
+        sources: [{
+          src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm04-legalforce.mp4',
           type: 'video/mp4'
         }],
         poster: 'https://media.w3.org/2010/05/video/poster.png'
       }])
       
-      // Play through the playlist automatically.
-      player.playlist.autoadvance(0)
+      console.log(player.playlist())
+
+      player.on('ended', () => {
+        if (player.playlist.next() === undefined) {
+          props.onEnded()
+        }
+      })
 
     }
   });
 
+  // Autoplay の設定、muted じゃないと正しく動かない場合もありそう。
+  // 事前に手動で再生していたりするとうまくいくとの情報も。
   return (
     <div>
-      <video controls ref={videoRef} className="video-js" />
+      <video autoPlay controls ref={videoRef} className="video-js" />
     </div>
   )
 }
