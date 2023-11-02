@@ -41,9 +41,9 @@ class SessionInfo {
   }
 }
 
-
 const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => {
 
+  const [time, setTime] = useState(new Date().toLocaleTimeString())
   const [count, setCount] = useState(10)
   const [rotation, setRotation] = useState(0)
 
@@ -52,9 +52,10 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   if(!sound.exists('chime')) sound.add('chime', '/sounds/examples_resources_chime.mp3')
 
   const sessions:SessionInfo[] = new Array()
-  sessions.push(new SessionInfo('間もなく', useState(0.0), [300, -200], [-120, -200], 3000, 300))
-  sessions.push(new SessionInfo('CM', useState(0.0), [-300, -50], [90, -50], 4000, 300))
-  sessions.push(new SessionInfo('入ります', useState(0.0), [300, 80], [-200, 80], 5000, 300))
+  sessions.push(new SessionInfo(time, useState(0.0), [755, 100], [755, 100], 0, 0))
+  // sessions.push(new SessionInfo('間もなく', useState(0.0), [300, -200], [-120, -200], 3000, 300))
+  // sessions.push(new SessionInfo('CM', useState(0.0), [-300, -50], [90, -50], 4000, 300))
+  // sessions.push(new SessionInfo('入ります', useState(0.0), [300, 80], [-200, 80], 5000, 300))
 
   // Load 時に bgm を開始
   useEffect(() => {
@@ -76,7 +77,7 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
         sound.play('boing')
       }
 
-      setTimeout(() => {setCount(count - 1)}, 1000)  
+      setTimeout(() => {setCount(count - 1)}, 1000)
     }
   }, [count])
 
@@ -90,6 +91,9 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
       }
       session.setAge(session.age + (delta * (1000 / 60)))
     }
+
+    // 現在時刻を更新
+    setTime(new Date().toLocaleTimeString())
 
     // 開始直後、終了間際は静止
     if ((rotation * (180/Math.PI) % 360 <= 10 && count <= 1)) {
@@ -105,12 +109,12 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
     }
   })
 
-  
-  const style = new PIXI.TextStyle({
+
+  const style_clock = new PIXI.TextStyle({
     align: 'center',
-    fontFamily: 'sans-serif',
-    fontSize: 60,
-    fontWeight: 'bold',
+    fontFamily: 'video-cond',
+    fontSize: 88,
+    fontWeight: '600',
     fill: ['#ffffff'],
     stroke: '#ffffff',
     strokeThickness: 1,
@@ -118,28 +122,30 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
     wordWrap: true,
     wordWrapWidth: 350
   });
-  
+
   return (
     <>
       <Sprite
-        image='https://s3-us-west-2.amazonaws.com/s.cdpn.io/693612/IaUrttj.png'
-        anchor={0.5}
-        scale={4}
-        rotation={rotation}
+        image='https://res.cloudinary.com/lesto-dertne/image/upload/v1697829207/EMTEC-intermission/background.png'
+        anchor={0}
+        x={0}
+        y={0}
+        scale={1}
+        // rotation={rotation}
       />
-      <Text
+      {/* <Text
         text={count.toString()}
-        x={-20}
+        x={200}
         y={150}
         style={style}
-      />
+      /> */}
       {sessions.filter(x => x.isActive((10 - count) * 1000)).map((x, i) => {return (
         <Text
           key={i}
           text={x.name}
           x={x.x()}
           y={x.y()}
-          style={style}
+          style={style_clock}
         />
       )})}
     </>
@@ -148,8 +154,8 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
 
 const PixiApp: React.FC<ContentProperties> = (props:ContentProperties) => {
   return (
-    <Stage width={500} height={500}>
-      <Container position={[250, 250]}>
+    <Stage width={1920} height={1080}>
+      <Container position={[0,0]}>
         <RotatingBunny onEnded={props.onEnded}/>
       </Container>
     </Stage>
