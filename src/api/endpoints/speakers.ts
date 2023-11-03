@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { apiConfig } from '../config/apiConfig';
 
 
