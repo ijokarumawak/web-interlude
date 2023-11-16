@@ -7,7 +7,6 @@ export async function fetchTalksData(): Promise<unknown> {
         headers: {
           'Content-Type': 'application/json',
         },
-        mode: 'no-cors',
       });
       console.log(response);
       if (!response.ok) {

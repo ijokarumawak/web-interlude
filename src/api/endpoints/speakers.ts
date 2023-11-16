@@ -7,7 +7,6 @@ export async function fetchSpeakersData() {
         headers: {
           'Content-Type': 'application/json',
         },
-        mode: 'no-cors',
       });
       console.log(response);
       if (!response.ok) {
