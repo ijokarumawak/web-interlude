@@ -1,6 +1,5 @@
 import { apiConfig } from '../config/apiConfig';
 
-
 export async function fetchSpeakersData() {
     try {
       const response = await fetch(apiConfig.speakersEndpoint, {
