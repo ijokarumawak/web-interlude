@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { fetchSpeakersData } from '../api/endpoints/speakers';
-import { fetchTalksData } from '../api/endpoints/talks';
+import { getSpeakers } from '../api/endpoint/speakers';
+import { getTalks } from '../api/endpoint/talks';
 
 export default function Home() {
   useEffect(() => {
-    fetchTalksData()
+    getTalks()
     .then(data => {
     console.log(data);
     })
@@ -15,7 +15,7 @@ export default function Home() {
     console.log(error);
     });
 
-    fetchSpeakersData()
+    getSpeakers()
     .then(data => {
     console.log(data);
     })
