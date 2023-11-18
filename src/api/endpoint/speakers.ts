@@ -1,7 +1,7 @@
 import { apiConfig } from '../config/apiConfig';
 import { getRequest } from './request';
 
-interface Speaker {
+export interface Speaker {
   id: number;
   name: string;
   company: string;

@@ -1,7 +1,7 @@
 import { apiConfig } from '../config/apiConfig';
 import { getRequest } from './request';
 
-interface Talk {
+export interface Talk {
   id: number;
   conferenceId: number;
   trackId: number;
@@ -33,6 +33,15 @@ interface Talk {
 export async function getTalks(): Promise<Talk[]> {
   try {
     return await getRequest(apiConfig.talksEndpoint);
+  } catch (error) {
+    console.error('Error fetching talks data:', error);
+    throw error;
+  }
+}
+
+export async function getTalk(talkId: string): Promise<Talk> {
+  try {
+    return await getRequest(apiConfig.talkEndpoint+talkId);
   } catch (error) {
     console.error('Error fetching talks data:', error);
     throw error;
