@@ -1,28 +1,8 @@
 'use client'
 
 import Link from 'next/link';
-import { useEffect } from 'react';
-import { getSpeakers } from '../api/endpoint/speakers';
-import { getTalks } from '../api/endpoint/talks';
 
 export default function Home() {
-  useEffect(() => {
-    getTalks()
-    .then(data => {
-    console.log(data);
-    })
-    .catch(error => {
-    console.log(error);
-    });
-
-    getSpeakers()
-    .then(data => {
-    console.log(data);
-    })
-    .catch(error => {
-    console.log(error);
-    });
-}, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-evenly p-24">
       <h1 className={`text-4xl`}>Web Interlude PoC</h1>
