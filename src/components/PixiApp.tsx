@@ -57,13 +57,15 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   useEffect(() => {
     if (props.talkData && props.talkData.speakers && props.talkData.speakers.length > 0 && props.speakersData) {
       const speakersMap = new Map(props.speakersData.map(speaker => [speaker.id, speaker]));
-      const firstSpeakerId = props.talkData.speakers[0];
-      const firstSpeaker = speakersMap.get(firstSpeakerId.id);
-      if (firstSpeaker) {
-        setSpeaker(firstSpeaker.name);
-        setCompany(firstSpeaker.company);
+      // 今の API なら、複数登壇者は文字列結合されているので、最初の登壇者のみを表示する
+      const SpeakersId = props.talkData.speakers[0];
+      const Speakers = speakersMap.get(SpeakersId.id);
+      if (Speakers) {
+        setSpeaker(Speakers.name);
+        setCompany(Speakers.company);
       }
     }
+
   }, [props.talkData, props.speakersData]);
 
   if(!sound.exists('bgm')) sound.add('bgm', '/sounds/CNDT2023_intermission.mp3')
