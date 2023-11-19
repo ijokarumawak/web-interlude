@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Stage, Container, Sprite, useTick, Text, Rectangle } from '@pixi/react'
+import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
 import * as PIXI from "pixi.js"
 import { sound } from "@pixi/sound"
 import { ContentProperties } from './ContentProperties'
