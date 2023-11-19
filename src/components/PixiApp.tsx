@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
 import * as PIXI from "pixi.js"
 import { sound } from "@pixi/sound"
-import { Talk } from '@/api/endpoint/talks'
-import { Speaker } from '@/api/endpoint/speakers'
+import { ContentProperties } from './ContentProperties'
 
 class SessionInfo {
   name:string
@@ -41,11 +40,6 @@ class SessionInfo {
   y():number {
     return this.fromPos[1]
   }
-}
-
-interface ContentProperties {
-  talkData: Talk | null;
-  speakersData: Speaker[] | null;
 }
 
 const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => {

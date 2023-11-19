@@ -37,7 +37,8 @@ export default function Home() {
           </p>
         </Link>
 
-        <Link
+        {/* src/pages/talks/[talkId].tsx を 実装したため、 このページを一旦廃止 /talks/1961 などをみると Animation が見れる */}
+        {/* <Link
           href="/animation"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
         >
@@ -50,7 +51,7 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             2D animation with React Pixi.
           </p>
-        </Link>
+        </Link> */}
 
         <Link
           href="/player"
