@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
 import * as PIXI from "pixi.js"
 import { sound } from "@pixi/sound"
-import { ContentProperties } from './ContentProperties'
-import { Session } from 'inspector'
+import { Talk } from '@/api/endpoint/talks'
+import { Speaker } from '@/api/endpoint/speakers'
 
 class SessionInfo {
   name:string
@@ -43,17 +43,25 @@ class SessionInfo {
   }
 }
 
+interface ContentProperties {
+  talkData: Talk | null;
+  speakersData: Speaker[] | null;
+}
+
 const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => {
 
-  const duration = 165 // 単位: 秒 これが animation パートの長さ TODO: 実際に必要な長さにする
+  const duration = 15 // 単位: 秒 これが animation パートの長さ TODO: 実際に必要な長さにする
+
+  const speakerData = props.speakersData?.find(s => s.id === props.talkData?.speakerId);
+
   const [time, setTime] = useState(new Date().toLocaleTimeString())
   const [count, setCount] = useState(duration)
   const [rotation, setRotation] = useState(0)
-  const [title, setTitle] = useState('CUJ（Critical User Journey）ベースの SLI/SLO を 活用した Progressive Delivery で リリース時の信頼性を最大化させる、ペアーズのデリバリー戦略')
+  const [title, setTitle] = useState(props.talkData?.title ||'title')
   // const [title, setTitle] = useState('カスタムコントローラーを安定稼働させるためのコード設計')
-  const [speaker, setSpeaker] = useState('Yukako Ishikawa さん')
-  const [company, setCompany] = useState('株式会社エウレカ')
-  const [session_time, setSession_time] = useState('20:00-20:40')
+  const [speaker, setSpeaker] = useState(speakerData?.name || 'speaker')
+  const [company, setCompany] = useState(speakerData?.company || 'company')
+  const [session_time, setSession_time] = useState(props.talkData?.session_time || 'session_time')
 
   if(!sound.exists('bgm')) sound.add('bgm', '/sounds/CNDT2023_intermission.mp3')
 
