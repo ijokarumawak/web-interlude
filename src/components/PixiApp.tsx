@@ -55,14 +55,14 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   const [session_time, setSession_time] = useState(props.talkData?.startTime || 'session_time')
 
   useEffect(() => {
-    if (props.talkData) {
-      setTitle(props.talkData.title || '');
-      setSession_time(props.talkData.startTime || '');
-    }
-
-    if (props.speakersData && props.speakersData.length > 0) {
-      setSpeaker(props.speakersData[0].name || '');
-      setCompany(props.speakersData[0].company || '');
+    if (props.talkData && props.talkData.speakers && props.talkData.speakers.length > 0 && props.speakersData) {
+      const speakersMap = new Map(props.speakersData.map(speaker => [speaker.id, speaker]));
+      const firstSpeakerId = props.talkData.speakers[0];
+      const firstSpeaker = speakersMap.get(firstSpeakerId.id);
+      if (firstSpeaker) {
+        setSpeaker(firstSpeaker.name);
+        setCompany(firstSpeaker.company);
+      }
     }
   }, [props.talkData, props.speakersData]);
 
