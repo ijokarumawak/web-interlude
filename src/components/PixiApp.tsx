@@ -54,6 +54,18 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   const [company, setCompany] = useState(props.speakersData ? props.speakersData[0].company : 'company');
   const [session_time, setSession_time] = useState(props.talkData?.startTime || 'session_time')
 
+  useEffect(() => {
+    if (props.talkData) {
+      setTitle(props.talkData.title || '');
+      setSession_time(props.talkData.startTime || '');
+    }
+
+    if (props.speakersData && props.speakersData.length > 0) {
+      setSpeaker(props.speakersData[0].name || '');
+      setCompany(props.speakersData[0].company || '');
+    }
+  }, [props.talkData, props.speakersData]);
+
   if(!sound.exists('bgm')) sound.add('bgm', '/sounds/CNDT2023_intermission.mp3')
 
   const style_clock = new PIXI.TextStyle({
