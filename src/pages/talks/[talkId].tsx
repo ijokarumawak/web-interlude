@@ -23,6 +23,9 @@ const TalkPage = () => {
 
   if (!talkData || !speakersData) return <div>Loading...</div>;  // ローディング表示
 
+  console.log(talkData.title);
+  console.log(speakersData[0].name);
+
   return (
     <div>
       {/* PixiAppコンポーネントにデータを渡す */}

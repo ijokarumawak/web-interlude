@@ -51,7 +51,8 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   const [rotation, setRotation] = useState(0)
   const [title, setTitle] = useState(props.talkData?.title ||'title')
   const [speaker, setSpeaker] = useState(props.speakersData ? props.speakersData[0].name : 'speaker');
-  const [company, setCompany] = useState(props.speakersData ? props.speakersData[0].company : 'company');  const [session_time, setSession_time] = useState(props.talkData?.startTime || 'session_time')
+  const [company, setCompany] = useState(props.speakersData ? props.speakersData[0].company : 'company');
+  const [session_time, setSession_time] = useState(props.talkData?.startTime || 'session_time')
 
   if(!sound.exists('bgm')) sound.add('bgm', '/sounds/CNDT2023_intermission.mp3')
 
