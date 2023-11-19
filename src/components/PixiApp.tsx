@@ -46,16 +46,12 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
 
   const duration = 15 // 単位: 秒 これが animation パートの長さ TODO: 実際に必要な長さにする
 
-  const speakerData = props.speakersData?.find(s => s.id === props.talkData?.speakerId);
-
   const [time, setTime] = useState(new Date().toLocaleTimeString())
   const [count, setCount] = useState(duration)
   const [rotation, setRotation] = useState(0)
   const [title, setTitle] = useState(props.talkData?.title ||'title')
-  // const [title, setTitle] = useState('カスタムコントローラーを安定稼働させるためのコード設計')
-  const [speaker, setSpeaker] = useState(speakerData?.name || 'speaker')
-  const [company, setCompany] = useState(speakerData?.company || 'company')
-  const [session_time, setSession_time] = useState(props.talkData?.session_time || 'session_time')
+  const [speaker, setSpeaker] = useState(props.speakersData ? props.speakersData[0].name : 'speaker');
+  const [company, setCompany] = useState(props.speakersData ? props.speakersData[0].company : 'company');  const [session_time, setSession_time] = useState(props.talkData?.startTime || 'session_time')
 
   if(!sound.exists('bgm')) sound.add('bgm', '/sounds/CNDT2023_intermission.mp3')
 
@@ -193,7 +189,7 @@ const PixiApp: React.FC<ContentProperties> = (props:ContentProperties) => {
   return (
     <Stage width={1920} height={1080}>
       <Container position={[0,0]}>
-        <RotatingBunny onEnded={props.onEnded}/>
+        <RotatingBunny onEnded={props.onEnded} talkData={null} speakersData={null} />
       </Container>
     </Stage>
   );

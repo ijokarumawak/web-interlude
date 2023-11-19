@@ -26,7 +26,8 @@ const TalkPage = () => {
   return (
     <div>
       {/* PixiAppコンポーネントにデータを渡す */}
-      <PixiApp talkData={talkData} speakersData={speakersData} />
+      <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css"></link>
+      <PixiApp talkData={talkData} speakersData={speakersData} onEnded={() => {}}/>
     </div>
   );
 };
