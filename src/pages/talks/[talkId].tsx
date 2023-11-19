@@ -30,7 +30,7 @@ const TalkPage = () => {
     <div>
       {/* PixiAppコンポーネントにデータを渡す */}
       <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css"></link>
-      <PixiApp talkData={talkData} speakersData={speakersData} onEnded={() => {}}/>
+      {talkData && speakersData && <PixiApp talkData={talkData} speakersData={speakersData} onEnded={() => {}}/>}
     </div>
   );
 };
