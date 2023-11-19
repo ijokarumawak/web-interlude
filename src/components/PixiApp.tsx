@@ -202,7 +202,7 @@ const PixiApp: React.FC<ContentProperties> = (props:ContentProperties) => {
   return (
     <Stage width={1920} height={1080}>
       <Container position={[0,0]}>
-        <RotatingBunny onEnded={props.onEnded} talkData={null} speakersData={null} />
+        <RotatingBunny onEnded={props.onEnded} talkData={props.talkData} speakersData={props.speakersData} />
       </Container>
     </Stage>
   );
