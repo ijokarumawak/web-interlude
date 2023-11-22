@@ -2,7 +2,7 @@ import { Speaker, getSpeakers } from '@/api/endpoint/speakers';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Talk, getTalk } from '../../api/endpoint/talks';
-import Page from '../../app/player/page.tsx';
+import Page from '../../app/player/page';
 
 // Talkコンポーネント
 const TalkPage = () => {
