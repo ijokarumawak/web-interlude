@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef, useEffect } from "react"
 import dynamic from "next/dynamic"
 import { useContext } from 'react'
 import { ContentContext } from '../context'
