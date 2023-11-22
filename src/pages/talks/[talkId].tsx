@@ -1,11 +1,8 @@
-import dynamic from 'next/dynamic';
 import { Speaker, getSpeakers } from '@/api/endpoint/speakers';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Talk, getTalk } from '../../api/endpoint/talks';
-
-// PixiAppを動的にインポートし、SSRを無効にする
-const PixiApp = dynamic(() => import('../../components/PixiApp'), { ssr: false });
+import Page from '../../app/player/page.tsx';
 
 // Talkコンポーネント
 const TalkPage = () => {
@@ -28,9 +25,12 @@ const TalkPage = () => {
 
   return (
     <div>
-      {/* PixiAppコンポーネントにデータを渡す */}
-      <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css"></link>
-      <PixiApp talkData={talkData} speakersData={speakersData} onEnded={() => {}}/>
+      <Page />
+      {speakersData.map((speaker, index) => (
+        <div key={index}>
+          <p>{speaker.name}</p>
+        </div>
+      ))}
     </div>
   );
 };
