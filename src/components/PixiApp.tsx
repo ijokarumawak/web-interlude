@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
 import * as PIXI from "pixi.js"
