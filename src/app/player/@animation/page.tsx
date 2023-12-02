@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic'
 import { useContext } from 'react'
 import { ContentContext } from '../context'
 
-const PixiApp = dynamic(() => import('../../../components/PixiApp'), { ssr: false })
+const PixiApp = dynamic(() => import('../../../components/PixiApp'), {
+  ssr: false,
+})
 
 export default function Page() {
   const { content, setContent } = useContext(ContentContext)

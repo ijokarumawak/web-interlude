@@ -1,11 +1,11 @@
 'use client'
 
-import { useRef, useEffect } from "react"
-import dynamic from "next/dynamic"
+import { useRef, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import { useContext } from 'react'
 import { ContentContext } from '../context'
 
-const VideoPlaylist = dynamic(() => import("../../../components/VideoPlaylist"))
+const VideoPlaylist = dynamic(() => import('../../../components/VideoPlaylist'))
 
 export default function Page() {
   const { content, setContent } = useContext(ContentContext)

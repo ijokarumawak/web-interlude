@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { Stage, Container, Sprite, useTick, Text } from '@pixi/react'
-import * as PIXI from "pixi.js"
-import { sound } from "@pixi/sound"
+import * as PIXI from 'pixi.js'
+import { sound } from '@pixi/sound'
 import { ContentProperties } from './ContentProperties'
 
 class SessionInfo {
@@ -26,19 +26,19 @@ class SessionInfo {
     this.style = style
   }
 
-  isActive(currentMillis:number):boolean {
+  isActive(currentMillis: number): boolean {
     return currentMillis > this.fromMillis
   }
 
-  x():number {
+  x(): number {
     // Bezier
     const t = Math.min(this.age, this.moveMillis) / this.moveMillis
-    const b = t * t * (3.0 - (2.0 * t))
+    const b = t * t * (3.0 - 2.0 * t)
     const d = (this.toPos[0] - this.fromPos[0]) * b
     return this.age < this.moveMillis ? this.fromPos[0] + d : this.toPos[0]
   }
 
-  y():number {
+  y(): number {
     return this.fromPos[1]
   }
 }
@@ -135,7 +135,6 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
       sound.stop('bgm')
       props.onEnded()
     } else {
-
       if (count <= 5) {
       }
 
@@ -145,20 +144,19 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
 
   // PIXI フレーム更新時の処理
   useTick((delta) => {
-
-    for(let i = 0; i < sessions.length; i++) {
+    for (let i = 0; i < sessions.length; i++) {
       const session = sessions[i]
       if (!session.isActive((10 - count) * 1000)) {
         continue
       }
-      session.setAge(session.age + (delta * (1000 / 60)))
+      session.setAge(session.age + delta * (1000 / 60))
     }
 
     // 現在時刻を更新
     setTime(new Date().toLocaleTimeString())
 
     // 開始直後、終了間際は静止
-    if ((rotation * (180/Math.PI) % 360 <= 10 && count <= 1)) {
+    if ((rotation * (180 / Math.PI)) % 360 <= 10 && count <= 1) {
       setRotation(0)
     } else {
       delta && count < 9 && setRotation(rotation + 0.1 * delta)
@@ -201,14 +199,14 @@ const RotatingBunny: React.FC<ContentProperties> = (props:ContentProperties) => 
   )
 }
 
-const PixiApp: React.FC<ContentProperties> = (props:ContentProperties) => {
+const PixiApp: React.FC<ContentProperties> = (props: ContentProperties) => {
   return (
     <Stage width={1920} height={1080}>
       <Container position={[0,0]}>
         <RotatingBunny onEnded={props.onEnded} talkData={props.talkData} speakersData={props.speakersData} />
       </Container>
     </Stage>
-  );
-};
+  )
+}
 
 export default PixiApp

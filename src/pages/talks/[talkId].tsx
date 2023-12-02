@@ -9,17 +9,17 @@ const PixiApp = dynamic(() => import('../../components/PixiApp'), { ssr: false }
 
 // Talkコンポーネント
 const TalkPage = () => {
-  const router = useRouter();
-  const { talkId } = router.query;
-  const [talkData, setTalkData] = useState<Talk | null>(null);
-  const [speakersData, setSpeakersData] = useState<Speaker[] | null>(null);
+  const router = useRouter()
+  const { talkId } = router.query
+  const [talkData, setTalkData] = useState<Talk | null>(null)
+  const [speakersData, setSpeakersData] = useState<Speaker[] | null>(null)
 
   useEffect(() => {
     if (typeof talkId === 'string') {
-      getTalk(talkId).then((talkRes: Talk) => setTalkData(talkRes));
+      getTalk(talkId).then((talkRes: Talk) => setTalkData(talkRes))
     }
-    getSpeakers().then((SpeakersRes: Speaker[]) => setSpeakersData(SpeakersRes));
-  }, [talkId]);
+    getSpeakers().then((SpeakersRes: Speaker[]) => setSpeakersData(SpeakersRes))
+  }, [talkId])
 
   if (!talkData || !speakersData) return <div>Loading...</div>;  // ローディング表示
 

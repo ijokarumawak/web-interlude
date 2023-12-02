@@ -10,7 +10,13 @@ export default function Page() {
     <div>
       <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css"></link>
       <h1 className={`mb-3 text-2xl font-semibold`}>player</h1>
-      <p>Next.js の <a href='https://nextjs.org/docs/app/building-your-application/routing/parallel-routes'>Parallel Routes</a>を使い動的にアニメーションとビデオを切り替えるサンプル</p>
+      <p>
+        Next.js の{' '}
+        <a href="https://nextjs.org/docs/app/building-your-application/routing/parallel-routes">
+          Parallel Routes
+        </a>
+        を使い動的にアニメーションとビデオを切り替えるサンプル
+      </p>
       <p>ただいま {content} を表示中...</p>
     </div>
   )

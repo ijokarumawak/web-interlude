@@ -1,8 +1,10 @@
 'use client'
 
-import dynamic from "next/dynamic"
+import dynamic from 'next/dynamic'
 
-const PixiApp = dynamic(() => import("../../components/PixiApp"), { ssr: false })
+const PixiApp = dynamic(() => import('../../components/PixiApp'), {
+  ssr: false,
+})
 
 export default function Anim() {
   return (
