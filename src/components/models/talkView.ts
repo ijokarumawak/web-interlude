@@ -17,15 +17,17 @@ export class TalkView {
   }
 
   private talksInTrack(trackId: number): Talk[] {
-    const talks = this.allTalksOnTimeTable().filter((t) => t.trackId === trackId)
-    return talks.sort((a, b) =>
-      getTime(a.startTime).diff(getTime(b.startTime))
+    const talks = this.allTalksOnTimeTable().filter(
+      (t) => t.trackId === trackId
     )
+    return talks.sort((a, b) => getTime(a.startTime).diff(getTime(b.startTime)))
   }
 
   private talksLeftInTrack(trackId: number): Talk[] {
     const afterFrom = getTime(this.selectedTalk.startTime)
-    return this.talksInTrack(trackId).filter((t) => getTime(t.startTime) > afterFrom)
+    return this.talksInTrack(trackId).filter(
+      (t) => getTime(t.startTime) > afterFrom
+    )
   }
 
   // 同じTrackの全Talk
