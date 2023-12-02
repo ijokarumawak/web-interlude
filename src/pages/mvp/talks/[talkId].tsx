@@ -11,7 +11,7 @@ function Pages() {
   const router = useRouter()
   const { talkId } = router.query
 
-  const { current, setTotalPage } = useContext(PageCtx)
+  const { current, setTotalPage, goNextPage } = useContext(PageCtx)
   const { isLoading, view } = useGetTalksAndTracks(talkId as string | null)
 
   const pages = [
@@ -27,7 +27,12 @@ function Pages() {
   if (isLoading) {
     return <></>
   }
-  return <div className="w-[1280px] h-[720px]">{pages[current]}</div>
+  return (
+    <>
+      <div className="w-[1280px] h-[720px]">{pages[current]}</div>
+      <button onClick={goNextPage} className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300">Go Next</button>
+    </>
+  )
 }
 
 export default function Index() {
