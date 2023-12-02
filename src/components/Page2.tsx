@@ -33,7 +33,10 @@ function Body({ view }: Props) {
     return <></>
   }
   const nextTalks = view.talksInNextSlot()
-  const {startTime, endTime} = Object.values(nextTalks)[0]
+  const talk = Object.values(nextTalks)[0]
+  if (!talk) {
+    return <></>
+  }
   return (
     <div className="py-6">
       <div className="basis-1/2 text-left w-[450px] bg-sky-500 pr-2 py-6">
@@ -42,7 +45,7 @@ function Body({ view }: Props) {
         </div>
       </div>
       <div className="basis-1/2 ml-[70px] mt-7 text-2xl">
-        {getTimeStr(startTime)}-{getTimeStr(endTime)} の各セッション
+        {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)} の各セッション
       </div>
       <div className="grid grid-cols-2 gap8">
         {view.allTracks.map((track) => {

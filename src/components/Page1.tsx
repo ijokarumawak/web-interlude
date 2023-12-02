@@ -39,7 +39,10 @@ function Body({ view }: Props) {
   if (!view) {
     return <></>
   }
-  const talk = view.selectedTalk
+  const talk = view.talksLeftInSameTrack()[0]
+  if (!talk) {
+    return <></>
+  }
   return (
     <div className="py-6">
       <div className="text-left w-[450px] bg-sky-500 pr-2 py-6">
@@ -75,12 +78,15 @@ function Side({ view }: Props) {
   if (!view) {
     return <></>
   }
+  // TODO TrackAはkeynoteがある関係でレコード数が多く、画面に入り切らない。
+  //      午前のセッションを除くか、TrackAだけ2ページでアニメーションするか、残りTalkだけ表示するか、
+  //      のどれかの対応が必要。
   return (
     <div className="p-6">
       {view.talksInSameTrack().map((talk) => (
         <div
           key={talk.id}
-          className="text-right w-[500px] bg-lime-500 px-2 py-1 my-2"
+          className="text-right w-[500px] bg-lime-500 px-2 pt-1 my-2"
         >
           <div className="flex flex-row">
             <div className="text-left basis-1/2 text-white text-xs">

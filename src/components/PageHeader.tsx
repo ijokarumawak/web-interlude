@@ -13,7 +13,10 @@ export default function Header({ view }: Props) {
   if (!view) {
     return <></>
   }
-  const talk = view.selectedTalk
+  const talk = view.talksLeftInSameTrack()[0]
+  if (!talk) {
+    return <div>No talks left.</div>
+  }
   return (
     <div className="flex flex-row items-center h-full text-gray-600 bg-gray-100">
       <div className="basis-1/3">
