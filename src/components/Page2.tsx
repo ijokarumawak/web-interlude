@@ -3,7 +3,6 @@ import { TalkView } from './models/talkView'
 import { useContext, useEffect } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
-import { getTimeStr } from '@/utils/time'
 import { Talk, Track } from '@/generated/dreamkast-api.generated'
 import PageHeader from './PageHeader'
 
@@ -32,21 +31,20 @@ function Body({ view }: Props) {
   if (!view) {
     return <></>
   }
-  const talk = view.selectedTalk
   const nextTalks = view.talksInNextSlot()
   return (
     <div className="py-6">
       <div className="text-left w-[450px] bg-sky-500 pr-2 py-6">
-        <div className="text-right text-white font-bold font-['Open_Sans'] text-3xl">UPCOMING SESSION</div>
+        <div className="text-right text-white font-bold font-['Open_Sans'] text-3xl">
+          UPCOMING SESSION
+        </div>
       </div>
       <div className="grid grid-cols-2 gap8">
-        {view.allTracks.map(track => {
+        {view.allTracks.map((track) => {
           const talk = nextTalks[track.name]
-          return (
-            <Track key={track.id} talk={talk} track={track} />
-          )
+          return <Track key={track.id} talk={talk} track={track} />
         })}
-      </div> 
+      </div>
     </div>
   )
 }
@@ -63,11 +61,17 @@ function Track({ talk, track }: TrackProps) {
   return (
     <div className="flex flex-row items-center text-gray-600 w-[600px] h-[250px]">
       <div className="basis-1/3">
-        <img src={"/cndt2023/trademark.png"} className="w-[120px] h-[120px] ml-auto mr-5"/>
+        <img
+          src={'/cndt2023/trademark.png'}
+          alt={'avator'}
+          className="w-[120px] h-[120px] ml-auto mr-5"
+        />
       </div>
       <div className="basis-2/3">
         <div className="text-2xl my-3">Track {track.name}</div>
-        <div className="text-xl my-3">{talk.speakers.map(s => s.name).join(", ")}</div>
+        <div className="text-xl my-3">
+          {talk.speakers.map((s) => s.name).join(', ')}
+        </div>
         <div className="text-xl my-3">{talk.title}</div>
       </div>
     </div>

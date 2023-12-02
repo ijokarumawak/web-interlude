@@ -29,7 +29,12 @@ function Pages() {
   }
   return (
     <>
-      <button onClick={goNextPage} className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right">Go Next</button>        
+      <button
+        onClick={goNextPage}
+        className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
+      >
+        Go Next
+      </button>
       <div className="w-[1280px] h-[720px] bg-white">{pages[current]}</div>
       <div className="w-[1280px] h-[200px] bg-black relative"></div>
     </>

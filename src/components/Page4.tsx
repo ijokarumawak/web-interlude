@@ -49,5 +49,4 @@ export default function Page(_: Props) {
       <VideoPlaylist onEnded={goNextPage} playlist={playlist}></VideoPlaylist>
     </div>
   )
-  
 }

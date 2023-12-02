@@ -46,7 +46,7 @@ export default function Page() {
     <div>
       <h1>Video playlist</h1>
       <div className="w-[1280px] h-[720px]">
-        <VideoPlaylist onEnded={() => {}} playlist={playlist}/>
+        <VideoPlaylist onEnded={() => {}} playlist={playlist} />
       </div>
     </div>
   )

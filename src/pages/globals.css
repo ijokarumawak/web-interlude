@@ -11,7 +11,7 @@ body {
 }
 .longshadow:before,
 .longshadow:after {
-  content: "";
+  content: '';
   position: absolute;
 }
 .longshadow:before {
@@ -20,7 +20,11 @@ body {
   height: 100%;
   top: 200px;
   left: -200px;
-  background-image: linear-gradient(to bottom, rgb(240, 240, 240), rgb(240, 240, 240));
+  background-image: linear-gradient(
+    to bottom,
+    rgb(240, 240, 240),
+    rgb(240, 240, 240)
+  );
   transform: skew(0, -45deg);
   transform-origin: 0 0;
 }
@@ -30,8 +34,11 @@ body {
   height: 200px;
   top: 100%;
   left: 0;
-  background-image: linear-gradient(to bottom, rgb(240, 240, 240), rgb(240, 240, 240));
+  background-image: linear-gradient(
+    to bottom,
+    rgb(240, 240, 240),
+    rgb(240, 240, 240)
+  );
   transform: skew(-45deg, 0);
   transform-origin: 0 0;
 }
-
