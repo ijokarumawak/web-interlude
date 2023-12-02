@@ -27,7 +27,7 @@ function Pages() {
   if (isLoading) {
     return <></>
   }
-  return <div className="w-[800px] h-[450px]">{pages[current]}</div>
+  return <div className="w-[1280px] h-[720px]">{pages[current]}</div>
 }
 
 export default function Index() {
