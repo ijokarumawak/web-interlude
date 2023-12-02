@@ -1,7 +1,11 @@
 import { Speaker, getSpeakers } from '@/api/endpoint/speakers';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Talk, getTalk } from '../../api/endpoint/talks';
+
+// PixiAppを動的にインポートし、SSRを無効にする
+const PixiApp = dynamic(() => import('../../components/PixiApp'), { ssr: false });
 
 // Talkコンポーネント
 const TalkPage = () => {
@@ -17,29 +21,18 @@ const TalkPage = () => {
     getSpeakers().then((SpeakersRes: Speaker[]) => setSpeakersData(SpeakersRes));
   }, [talkId]);
 
-
   if (!talkData || !speakersData) return <div>Loading...</div>;  // ローディング表示
 
+  console.log(talkData.title);
+  console.log(speakersData[0].name);
+
   return (
-      <div>
-      <h1>Talkのレスポンス</h1>
-      <p>{talkData.conferenceId}</p>
-      <p>{talkData.trackId}</p>
-      <p>{talkData.videoPlatform}</p>
-      <p>{talkData.videoId}</p>
-      <p>{talkData.title}</p>
-      <p>{talkData.abstract}</p>
-      <p>{talkData.speakers[0].id}</p>
-      <p>{talkData.speakers[0].name}</p>
-      ....
-    <br></br>
-    <br></br>
-    <h1>Speakersのレスポンス</h1>
-      <p>{speakersData[0].company}</p>
-      <p>{speakersData[0].name}</p>
-      ....
+    <div>
+      {/* PixiAppコンポーネントにデータを渡す */}
+      <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css"></link>
+      <PixiApp talkData={talkData} speakersData={speakersData} onEnded={() => {}}/>
     </div>
- );
-}
+  );
+};
 
 export default TalkPage;

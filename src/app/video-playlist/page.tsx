@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <div>
       <h1>Video playlist</h1>
-      <VideoPlaylist onEnded={() => {}} />
+      <VideoPlaylist onEnded={() => { } } talkData={null} speakersData={null} />
     </div>
   )
 }
