@@ -1,3 +1,4 @@
+import './globals.css'
 import { wrapper } from '@/store'
 import type { AppProps } from 'next/app'
 import { FC } from 'react'
