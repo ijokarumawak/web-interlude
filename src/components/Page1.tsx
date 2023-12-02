@@ -3,6 +3,7 @@ import { TalkView } from './models/talkView'
 import { useContext, useEffect } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
+import { getTimeStr } from '@/utils/time'
 
 type Props = { view: Optional<TalkView> }
 
@@ -13,27 +14,98 @@ export default function Page({ view }: Props) {
   }, [goNextPage])
 
   return (
-    <div className="max-w- mx-auto bg-white shadow-md overflow-hidden">
-      <div className="flex justify-between items-center bg-gray-200 p-4">
-        <div className="text-lg text-gray-700">2023/08/03</div>
-        <div className="text-2xl text-gray-800">PAGE 1</div>
+    <div>
+      <div className="h-[120px]">
+        <Header view={view} />
       </div>
 
-      <div className="p-6 border-b border-gray-300">
-        <div className="text-lg text-gray-600">18:00 - 18:40</div>
-        <div className="text-xl text-gray-800 my-2">テストのタイトル</div>
-        <div className="text-lg font-bold">Test Taro</div>
-        <div className="mt-4">
-          <div className="text-sm text-gray-600">N/A</div>
-          <div className="text-sm text-gray-600">
-            PoC(検証), Production(本番環境)
+      <div className="h-[600px]">
+        <div className="flex flex-row h-full">
+          <div className="basis-2/3">
+            <Body view={view} />
           </div>
-          <div className="text-sm text-gray-600">
-            app-developer - アプリケーション開発, operator/sys-admin -
-            運用管理/システム管理
+          <div className="basis-1/3">
+            <Side view={view} />
           </div>
         </div>
       </div>
     </div>
   )
+}
+
+function Header({ view }: Props) {
+  const { now } = useContext(PageCtx)
+  if (!view) {
+    return <></>
+  }
+  const talk = view.selectedTalk
+  return (
+    <div className="flex flex-row items-center h-full text-gray-600 bg-gray-100">
+      <div className="basis-1/3">
+        <div className="text-2xl  text-center">Track {view.selectedTrack.name}</div>
+      </div>
+      <div className="basis-1/3">
+        <div className="text-lg text-center">{config.eventAbbr.toUpperCase()}</div>
+        <div className="text-3xl text-center">{now.format('HH:mm:ss')}</div>
+      </div>
+      <div className="basis-1/12">
+        <div className="text-lg text-center">Next</div>
+      </div>
+      <div className="basis-1/4 pr-4">
+        <div className="text-lg text-center">{getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}</div>
+        <div className="text-lg text-center">{trim(talk.title, 40)}</div>
+      </div>
+    </div>
+  )
+}
+
+function Body({ view }: Props) {
+  const { now } = useContext(PageCtx)
+  if (!view) {
+    return <></>
+  }
+  const talk = view.selectedTalk
+  return (
+    <div className="py-6">
+      <div className="text-left w-[450px] bg-sky-500 pr-2 py-6">
+        <div className="text-right text-white font-bold font-['Open_Sans'] text-3xl">UPCOMING SESSION</div>
+      </div>
+      <div className="top-[50px] left-[100px] w-[600px] relative longshadow">
+        <div className="text-center py-1 text-xl text-white bg-slate-400">{getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}</div>
+        <div className="text-center text-2xl mt-8 mb-5 font-bold">{talk.title}</div>
+        <div className="text-center text-lg font-bold m-3">{talk.speakers.map(s => s.name).join(", ")}</div>
+        <div className="p-3">
+          <div className="text-sm text-gray-600 mt-1">
+            <span className="mr-5">Category: {talk.talkCategory}</span>
+            <span>Difficulty: {talk.talkDifficulty}</span>
+          </div>
+          <div className="text-sm text-gray-600 mt-1">Abstract: {trim(talk.abstract, 200)}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Side({ view }: Props) {
+  const { now } = useContext(PageCtx)
+  if (!view) {
+    return <></>
+  }
+  return (
+    <div className="p-6">
+      {view.talksInSameTrack().map((talk) => (
+        <div className="text-right w-[500px] bg-lime-500 px-2 py-1 my-2">
+          <div className="flex flex-row">
+            <div className="text-left basis-1/2 text-white text-xs">{getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}</div>
+            <div className="basis-1/2 text-white text-xs">{talk.speakers.map(t => t.name).join(", ")}</div>
+          </div>
+          <div className="text-center text-white text-sm h-[40px] font-bold">{trim(talk.title, 80)}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function trim(str: string, len: number) {
+  return str.length > len ? str.substring(0, len - 3) + '...' : str
 }

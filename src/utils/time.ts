@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 
@@ -12,4 +12,8 @@ export function getTimeStr(time: string): string {
 
 export function getTime(time: string) {
   return dayjs(time).tz()
+}
+
+export function now(): Dayjs {
+  return dayjs().tz()
 }

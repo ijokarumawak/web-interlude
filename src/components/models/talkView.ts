@@ -3,6 +3,7 @@ import { getTime } from '@/utils/time'
 
 export class TalkView {
   readonly selectedTalk: Talk
+  readonly selectedTrack: Track
   readonly allTalks: Talk[]
   readonly allTracks: Track[]
 
@@ -10,6 +11,9 @@ export class TalkView {
     this.selectedTalk = talk
     this.allTalks = Array.from(talks).sort((a, b) => a.id - b.id)
     this.allTracks = Array.from(tracks).sort((a, b) => a.id - b.id)
+    this.selectedTrack = this.allTracks.find(
+      (track) => track.id === talk.trackId
+    )!
   }
 
   private allTalksOnTimeTable(): Talk[] {
