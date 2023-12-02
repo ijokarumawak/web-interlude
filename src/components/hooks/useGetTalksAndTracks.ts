@@ -4,20 +4,24 @@ import {
   useGetApiV1TalksQuery,
   useGetApiV1TracksQuery,
 } from '@/generated/dreamkast-api.generated'
-import { Optional } from '@/types'
+import { Optional } from '@/utils/types'
 import { useEffect, useState } from 'react'
+import { TalkView } from '@/components/models/talkView'
 
 export const useGetTalksAndTracks = (talkId: Optional<string>) => {
-
   const talkResult = useGetTalk(talkId)
   const talksResult = useGetTalks(talkResult.data?.conferenceDayId)
   const tracksResult = useGetTracks()
 
+  let view: Optional<TalkView> = undefined
+  if (talkResult.data && talksResult.data && tracksResult.data) {
+    view = new TalkView(talkResult.data, talksResult.data, tracksResult.data)
+  }
+
   return {
-    isLoading: talkResult.isLoading || talksResult.isLoading || tracksResult.isLoading,
-    talk: talkResult.data,
-    talks: talksResult.data,
-    tracks: tracksResult.data,
+    isLoading:
+      talkResult.isLoading || talksResult.isLoading || tracksResult.isLoading,
+    view,
   }
 }
 
@@ -26,7 +30,7 @@ export const useGetTalk = (talkId: Optional<string>) => {
 
   const { data, isLoading, isError, error } = useGetApiV1TalksByTalkIdQuery(
     { talkId: talkId! },
-    { skip: !talkId}
+    { skip: !talkId }
   )
 
   useEffect(() => {
@@ -35,7 +39,7 @@ export const useGetTalk = (talkId: Optional<string>) => {
         throw error
       })
     }
-  }, [data, isLoading, isError])
+  }, [isError, error])
 
   return {
     data,
@@ -51,7 +55,7 @@ export const useGetTalks = (conferenceDayId: Optional<number>) => {
       eventAbbr: config.eventAbbr,
       conferenceDayIds: `${conferenceDayId}`,
     },
-    { skip: !conferenceDayId },
+    { skip: !conferenceDayId }
   )
 
   useEffect(() => {
@@ -60,7 +64,7 @@ export const useGetTalks = (conferenceDayId: Optional<number>) => {
         throw error
       })
     }
-  }, [data, isLoading, isError])
+  }, [isError, error])
 
   return {
     data,
@@ -71,11 +75,9 @@ export const useGetTalks = (conferenceDayId: Optional<number>) => {
 export const useGetTracks = () => {
   const [_, setError] = useState()
 
-  const { data, isLoading, isError, error } = useGetApiV1TracksQuery(
-    {
-      eventAbbr: config.eventAbbr,
-    },
-  )
+  const { data, isLoading, isError, error } = useGetApiV1TracksQuery({
+    eventAbbr: config.eventAbbr,
+  })
 
   useEffect(() => {
     if (isError) {
@@ -83,7 +85,7 @@ export const useGetTracks = () => {
         throw error
       })
     }
-  }, [data, isLoading, isError])
+  }, [isError, error])
 
   return {
     data,
