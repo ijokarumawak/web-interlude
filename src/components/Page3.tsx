@@ -3,6 +3,7 @@ import { TalkView } from './models/talkView'
 import { use, useContext, useEffect, useState } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
+import PageHeader from './PageHeader'
 
 type Props = { view: Optional<TalkView> }
 
@@ -22,7 +23,12 @@ export default function Page({ view }: Props) {
   }, [count, goNextPage])
 
   return (
-    <img src={images[count]} className="w-full h-full"/>
+    <div>
+      <div className="h-[120px]">
+        <PageHeader view={view} />
+      </div>
+      <img src={images[count]} className="w-[960] h-[540px] m-auto my-6"/>
+    </div>
   )
 }
 
