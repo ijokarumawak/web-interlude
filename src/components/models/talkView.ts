@@ -30,7 +30,7 @@ export class TalkView {
   private talksLeftInTrack(trackId: number): Talk[] {
     const afterFrom = getTime(this.selectedTalk.startTime)
     return this.talksInTrack(trackId).filter(
-      (t) => getTime(t.startTime) > afterFrom
+      (t) => getTime(t.startTime) >= afterFrom
     )
   }
 

@@ -5,6 +5,7 @@ import { PageCtx } from './models/pageContext'
 import config from '@/config'
 import { Talk, Track } from '@/generated/dreamkast-api.generated'
 import PageHeader from './PageHeader'
+import { getTimeStr } from '@/utils/time'
 
 type Props = { view: Optional<TalkView> }
 
@@ -32,12 +33,16 @@ function Body({ view }: Props) {
     return <></>
   }
   const nextTalks = view.talksInNextSlot()
+  const {startTime, endTime} = Object.values(nextTalks)[0]
   return (
     <div className="py-6">
-      <div className="text-left w-[450px] bg-sky-500 pr-2 py-6">
+      <div className="basis-1/2 text-left w-[450px] bg-sky-500 pr-2 py-6">
         <div className="text-right text-white font-bold font-['Open_Sans'] text-3xl">
           UPCOMING SESSION
         </div>
+      </div>
+      <div className="basis-1/2 ml-[70px] mt-7 text-2xl">
+        {getTimeStr(startTime)}-{getTimeStr(endTime)} の各セッション
       </div>
       <div className="grid grid-cols-2 gap8">
         {view.allTracks.map((track) => {
@@ -59,7 +64,7 @@ function Track({ talk, track }: TrackProps) {
     return <></>
   }
   return (
-    <div className="flex flex-row items-center text-gray-600 w-[600px] h-[250px]">
+    <div className="flex flex-row items-center text-gray-600 w-[600px] h-[200px]">
       <div className="basis-1/3">
         <img
           src={'/cndt2023/trademark.png'}
