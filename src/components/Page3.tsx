@@ -1,39 +1,38 @@
 import { Optional } from '@/utils/types'
 import { TalkView } from './models/talkView'
-import { useContext, useEffect } from 'react'
+import { use, useContext, useEffect, useState } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
 
 type Props = { view: Optional<TalkView> }
 
+const images = [
+  "/cndt2023/info1.png",
+  "/cndt2023/info2.png",
+  "/cndt2023/info3.png",
+]
+
 export default function Page({ view }: Props) {
   const { goNextPage } = useContext(PageCtx)
+  const { count } = useCounter(images.length)
   useEffect(() => {
-    setTimeout(goNextPage, config.transTimePage3 * 1000)
-  }, [goNextPage])
+    if (count >= images.length) {
+      goNextPage()
+    }
+  }, [count, goNextPage])
 
   return (
-    <div className="max-w- mx-auto bg-white shadow-md overflow-hidden">
-      <div className="flex justify-between items-center bg-gray-200 p-4">
-        <div className="text-lg text-gray-700">2023/08/03</div>
-        <div className="text-2xl text-gray-800">PAGE 3</div>
-      </div>
-
-      <div className="p-6 border-b border-gray-300">
-        <div className="text-lg text-gray-600">18:00 - 18:40</div>
-        <div className="text-xl text-gray-800 my-2">テストのタイトル</div>
-        <div className="text-lg font-bold">Test Taro</div>
-        <div className="mt-4">
-          <div className="text-sm text-gray-600">N/A</div>
-          <div className="text-sm text-gray-600">
-            PoC(検証), Production(本番環境)
-          </div>
-          <div className="text-sm text-gray-600">
-            app-developer - アプリケーション開発, operator/sys-admin -
-            運用管理/システム管理
-          </div>
-        </div>
-      </div>
-    </div>
+    <img src={images[count]} className="w-full h-full"/>
   )
+}
+
+const useCounter = (total: number) => {
+  const [count, setCount] = useState<number>(0)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount((c) => c + 1)
+    }, config.transTimePage3 * 1000 / total)
+    return () => clearInterval(timer)
+  }, [])
+  return { count }
 }
