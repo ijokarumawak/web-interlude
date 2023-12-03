@@ -12,8 +12,7 @@ RUN apt-get update && apt-get install -y tini \
     && rm -rf /var/lib/apt/lists/*
 COPY --link --from=base /base ./
 COPY --link . .
-RUN npm run build
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD [ "/usr/local/bin/npm", "run", "start" ]
+CMD [ "/usr/local/bin/npm", "run", "dev" ]
 EXPOSE 3000
