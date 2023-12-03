@@ -51,7 +51,6 @@ function Body({ view }: Props) {
         {view.allTracks.map((track) => {
           const talk = nextTalks[track.name]
           const speakers = view.speakersOf(talk.id)
-          console.log(speakers)
           return <Track key={track.id} talk={talk} track={track} speakers={speakers}/>
         })}
       </div>
@@ -70,14 +69,14 @@ function Track({ talk, track, speakers }: TrackProps) {
     return <></>
   }
   const companies = new Set(speakers.map((s) => s.company))
-  console.log('Speaker', speakers)
+  const avatorUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
   return (
     <div className="flex flex-row items-center text-gray-600 w-[600px] h-[200px]">
       <div className="basis-1/3">
         <img
-          src={'/cndt2023/trademark.png'}
+          src={avatorUrl}
           alt={'avator'}
-          className="w-[120px] h-[120px] ml-auto mr-5"
+          className="w-[120px] h-[120px] ml-auto mr-5 rounded-full"
         />
       </div>
       <div className="basis-2/3">
@@ -88,7 +87,7 @@ function Track({ talk, track, speakers }: TrackProps) {
         <div className="text-md mb-3">
           {Array.from(companies).join(', ') }
         </div>
-        <div className="text-xl my-3">{talk.title}</div>
+        <div className="text-md my-3">{talk.title}</div>
       </div>
     </div>
   )
