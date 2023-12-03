@@ -3,7 +3,7 @@ import {
   useGetApiV1TalksByTalkIdQuery,
   useGetApiV1TalksQuery,
   useGetApiV1TracksQuery,
-  useGetApiV1SpeakersQuery
+  useGetApiV1SpeakersQuery,
 } from '@/generated/dreamkast-api.generated'
 import { Optional } from '@/utils/types'
 import { useEffect, useMemo, useState } from 'react'
@@ -16,15 +16,33 @@ export const useGetTalksAndTracks = (talkId: Optional<string>) => {
   const speakersResult = useGetSpeakers()
 
   const view: Optional<TalkView> = useMemo(() => {
-    if (talkResult.data && talksResult.data && tracksResult.data && speakersResult.data) {
-      return new TalkView(talkResult.data, talksResult.data, tracksResult.data, speakersResult.data)
+    if (
+      talkResult.data &&
+      talksResult.data &&
+      tracksResult.data &&
+      speakersResult.data
+    ) {
+      return new TalkView(
+        talkResult.data,
+        talksResult.data,
+        tracksResult.data,
+        speakersResult.data
+      )
     }
     return null
-  }, [talkResult.data, talksResult.data, tracksResult.data, speakersResult.data])
+  }, [
+    talkResult.data,
+    talksResult.data,
+    tracksResult.data,
+    speakersResult.data,
+  ])
 
   return {
     isLoading:
-      talkResult.isLoading || talksResult.isLoading || tracksResult.isLoading || speakersResult.isLoading,
+      talkResult.isLoading ||
+      talksResult.isLoading ||
+      tracksResult.isLoading ||
+      speakersResult.isLoading,
     view,
   }
 }
@@ -100,10 +118,9 @@ export const useGetTracks = () => {
 export const useGetSpeakers = () => {
   const [_, setError] = useState()
 
-  const { data, isLoading, isError, error } = useGetApiV1SpeakersQuery(
-    {
-      eventAbbr: config.eventAbbr,
-    })
+  const { data, isLoading, isError, error } = useGetApiV1SpeakersQuery({
+    eventAbbr: config.eventAbbr,
+  })
 
   useEffect(() => {
     if (isError) {

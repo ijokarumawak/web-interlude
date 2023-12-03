@@ -51,7 +51,14 @@ function Body({ view }: Props) {
         {view.allTracks.map((track) => {
           const talk = nextTalks[track.name]
           const speakers = view.speakersOf(talk.id)
-          return <Track key={track.id} talk={talk} track={track} speakers={speakers}/>
+          return (
+            <Track
+              key={track.id}
+              talk={talk}
+              track={track}
+              speakers={speakers}
+            />
+          )
         })}
       </div>
     </div>
@@ -84,9 +91,7 @@ function Track({ talk, track, speakers }: TrackProps) {
         <div className="text-xl font-bold mt-3">
           {talk.speakers.map((s) => s.name).join(', ')}
         </div>
-        <div className="text-md mb-3">
-          {Array.from(companies).join(', ') }
-        </div>
+        <div className="text-md mb-3">{Array.from(companies).join(', ')}</div>
         <div className="text-md my-3">{talk.title}</div>
       </div>
     </div>

@@ -64,6 +64,8 @@ export class TalkView {
 
   speakersOf(talkId: number): Speaker[] {
     const talk = this.allTalksOnTimeTable().find((t) => t.id === talkId)!
-    return this.speakers.filter((speaker) => talk.speakers.map(s => s.id).includes(speaker.id))
+    return this.speakers.filter((speaker) =>
+      talk.speakers.map((s) => s.id).includes(speaker.id)
+    )
   }
 }
