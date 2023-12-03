@@ -3,7 +3,7 @@ import { TalkView } from './models/talkView'
 import { useContext, useEffect } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
-import { Talk, Track } from '@/generated/dreamkast-api.generated'
+import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
 import PageHeader from './PageHeader'
 import { getTimeStr } from '@/utils/time'
 
@@ -50,7 +50,9 @@ function Body({ view }: Props) {
       <div className="grid grid-cols-2 gap8">
         {view.allTracks.map((track) => {
           const talk = nextTalks[track.name]
-          return <Track key={track.id} talk={talk} track={track} />
+          const speakers = view.speakersOf(talk.id)
+          console.log(speakers)
+          return <Track key={track.id} talk={talk} track={track} speakers={speakers}/>
         })}
       </div>
     </div>
@@ -60,12 +62,15 @@ function Body({ view }: Props) {
 type TrackProps = {
   talk: Talk
   track: Track
+  speakers: Speaker[]
 }
 
-function Track({ talk, track }: TrackProps) {
+function Track({ talk, track, speakers }: TrackProps) {
   if (!talk || !track) {
     return <></>
   }
+  const companies = new Set(speakers.map((s) => s.company))
+  console.log('Speaker', speakers)
   return (
     <div className="flex flex-row items-center text-gray-600 w-[600px] h-[200px]">
       <div className="basis-1/3">
@@ -77,8 +82,11 @@ function Track({ talk, track }: TrackProps) {
       </div>
       <div className="basis-2/3">
         <div className="text-2xl my-3">Track {track.name}</div>
-        <div className="text-xl my-3">
+        <div className="text-xl font-bold mt-3">
           {talk.speakers.map((s) => s.name).join(', ')}
+        </div>
+        <div className="text-md mb-3">
+          {Array.from(companies).join(', ') }
         </div>
         <div className="text-xl my-3">{talk.title}</div>
       </div>

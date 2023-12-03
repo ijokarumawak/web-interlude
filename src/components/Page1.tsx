@@ -43,6 +43,9 @@ function Body({ view }: Props) {
   if (!talk) {
     return <></>
   }
+  const speakers = view.speakersOf(talk.id)
+  const companies = new Set(speakers.map((s) => s.company))
+
   return (
     <div className="py-6">
       <div className="text-left w-[450px] bg-sky-500 pr-2 py-6">
@@ -59,6 +62,9 @@ function Body({ view }: Props) {
         </div>
         <div className="text-center text-lg font-bold m-3">
           {talk.speakers.map((s) => s.name).join(', ')}
+        </div>
+        <div className="text-center text-lg font-bold m-3">
+          {Array.from(companies).join(', ')}
         </div>
         <div className="p-3">
           <div className="text-sm text-gray-600 mt-1">

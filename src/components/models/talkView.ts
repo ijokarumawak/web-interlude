@@ -1,16 +1,19 @@
-import { Talk, Track } from '@/generated/dreamkast-api.generated'
+import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
 import { getTime } from '@/utils/time'
+import { Optional } from '@/utils/types'
 
 export class TalkView {
   readonly selectedTalk: Talk
   readonly selectedTrack: Track
   readonly allTalks: Talk[]
   readonly allTracks: Track[]
+  readonly speakers: Speaker[]
 
-  constructor(talk: Talk, talks: Talk[], tracks: Track[]) {
+  constructor(talk: Talk, talks: Talk[], tracks: Track[], speakers: Speaker[]) {
     this.selectedTalk = talk
     this.allTalks = Array.from(talks).sort((a, b) => a.id - b.id)
     this.allTracks = Array.from(tracks).sort((a, b) => a.id - b.id)
+    this.speakers = Array.from(speakers).sort((a, b) => a.id - b.id)
     this.selectedTrack = this.allTracks.find(
       (track) => track.id === talk.trackId
     )!
@@ -57,5 +60,10 @@ export class TalkView {
       },
       {} as Record<string, Talk>
     )
+  }
+
+  speakersOf(talkId: number): Speaker[] {
+    const talk = this.allTalksOnTimeTable().find((t) => t.id === talkId)!
+    return this.speakers.filter((speaker) => talk.speakers.map(s => s.id).includes(speaker.id))
   }
 }
