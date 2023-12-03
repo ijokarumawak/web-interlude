@@ -84,12 +84,42 @@ function Side({ view }: Props) {
   if (!view) {
     return <></>
   }
-  // TODO TrackAはkeynoteがある関係でレコード数が多く、画面に入り切らない。
-  //      午前のセッションを除くか、TrackAだけ2ページでアニメーションするか、残りTalkだけ表示するか、
-  //      のどれかの対応が必要。
+  // 午前セッションは、keynoteとして1枠で表示する。
+  const hasKeynote =
+    view.talksInSameTrack().filter((t) => t.talkCategory === 'Keynote').length >
+    0
+  const talks = view
+    .talksInSameTrack()
+    .filter((t) => t.talkCategory !== 'Keynote')
+  const keyNoteTalks = view
+    .talksInSameTrack()
+    .filter((t) => t.talkCategory === 'Keynote')
   return (
     <div className="p-6">
-      {view.talksInSameTrack().map((talk) => (
+      {hasKeynote && (
+        <div className="text-right w-[500px] bg-lime-500 px-2 pt-1 pb-2 my-2">
+          <div className="flex flex-row">
+            <div className="text-left basis-1/2 text-white text-xs">
+              <span>
+                {getTimeStr(keyNoteTalks[0].startTime)} -{' '}
+                {getTimeStr(keyNoteTalks[keyNoteTalks.length - 1].endTime)} :
+              </span>
+              <span className="ml-2">Keynote</span>
+            </div>
+            <div className="basis-1/2 text-white text-xs" />
+          </div>
+          {keyNoteTalks.map((talk) => (
+            <div
+              key={talk.id}
+              className="text-center text-white text-sm h-[20px] font-bold"
+            >
+              {trim(talk.title, 80)}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {talks.map((talk) => (
         <div
           key={talk.id}
           className="text-right w-[500px] bg-lime-500 px-2 pt-1 my-2"
