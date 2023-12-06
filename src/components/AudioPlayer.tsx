@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from 'react'
 
 type Props = {
   src: string
@@ -42,4 +42,3 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
     </>
   )
 }
-

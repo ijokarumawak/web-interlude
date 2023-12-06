@@ -1,6 +1,5 @@
 import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
 import { getTime } from '@/utils/time'
-import { Optional } from '@/utils/types'
 
 export class TalkView {
   readonly selectedTalk: Talk
