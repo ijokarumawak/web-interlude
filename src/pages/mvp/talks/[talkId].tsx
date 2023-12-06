@@ -1,3 +1,4 @@
+import AudioPlayer from '@/components/AudioPlayer'
 import Page1 from '@/components/Page1'
 import Page2 from '@/components/Page2'
 import Page3 from '@/components/Page3'
@@ -24,6 +25,9 @@ function Pages() {
     setTotalPage(pages.length)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const audioSrc = '/cndt2023/CNDT2023_intermission.mp3'
+  const shouldPlayAudio = current !== pages.length - 1
+
   if (isLoading) {
     return <></>
   }
@@ -35,6 +39,7 @@ function Pages() {
       >
         Go Next
       </button>
+      <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio}/>
       <div className="w-[1280px] h-[720px] bg-white">{pages[current]}</div>
       <div className="w-[1280px] h-[200px] bg-black relative"></div>
     </>
