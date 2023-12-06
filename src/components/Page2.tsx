@@ -12,7 +12,8 @@ type Props = { view: Optional<TalkView> }
 export default function Page({ view }: Props) {
   const { goNextPage } = useContext(PageCtx)
   useEffect(() => {
-    setTimeout(goNextPage, config.transTimePage2 * 1000)
+    const cancel = setTimeout(goNextPage, config.transTimePage2 * 1000)
+    return () => clearTimeout(cancel)
   }, [goNextPage])
 
   return (

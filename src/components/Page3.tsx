@@ -11,6 +11,12 @@ const images = [
   '/cndt2023/info1.png',
   '/cndt2023/info2.png',
   '/cndt2023/info3.png',
+  '/cndt2023/info4.png',
+  '/cndt2023/info5.png',
+  '/cndt2023/info6.png',
+  '/cndt2023/info7.png',
+  '/cndt2023/info8.png',
+  '/cndt2023/info9.png',
 ]
 
 export default function Page({ view }: Props) {
