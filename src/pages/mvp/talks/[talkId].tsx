@@ -30,7 +30,7 @@ function Pages() {
   const shouldPlayAudio = current !== pages.length - 1
 
   if (isLoading) {
-    return <></>
+    return <div className="text-white">Loading...</div>
   }
   return (
     <>

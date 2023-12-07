@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import { PageCtx } from './models/pageContext'
 import config from '@/config'
 import PageHeader from './PageHeader'
+import Image from 'next/image'
 
 type Props = { view: Optional<TalkView> }
 
@@ -33,10 +34,12 @@ export default function Page({ view }: Props) {
       <div className="h-[120px]">
         <PageHeader view={view} />
       </div>
-      <img
+      <Image
         src={images[count]}
         alt={'information'}
-        className="w-[960] h-[540px] m-auto my-6"
+        width={1280}
+        height={720}
+        className="m-auto"
       />
     </div>
   )
