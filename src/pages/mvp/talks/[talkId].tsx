@@ -42,9 +42,9 @@ function Pages() {
           >
             Go Next
           </button>
-          <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
         </>
       )}
+      <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1280px] h-[720px] bg-white">{pages[current]}</div>
       <div className="w-[1280px] h-[200px] bg-black relative"></div>

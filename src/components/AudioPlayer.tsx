@@ -1,3 +1,4 @@
+import config from '@/config'
 import { useCallback, useEffect, useRef } from 'react'
 
 type Props = {
@@ -32,12 +33,14 @@ export default function AudioPlayer({ src, shouldPlay }: Props) {
 
   return (
     <>
-      <button
-        onClick={play}
-        className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
-      >
-        Audio AutoPlay
-      </button>
+      {config.debug && (
+        <button
+          onClick={play}
+          className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
+        >
+          Audio AutoPlay
+        </button>
+      )}
       <audio loop ref={audioRef} src={src}></audio>
     </>
   )
