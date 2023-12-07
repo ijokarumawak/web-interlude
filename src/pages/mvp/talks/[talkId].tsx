@@ -5,6 +5,7 @@ import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
 import { PageCtx, PageCtxProvider } from '@/components/models/pageContext'
+import config from '@/config'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
@@ -33,13 +34,17 @@ function Pages() {
   }
   return (
     <>
-      <button
-        onClick={goNextPage}
-        className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
-      >
-        Go Next
-      </button>
-      <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
+      {config.debug && (
+        <>
+          <button
+            onClick={goNextPage}
+            className="font-bold py-0 px-4 mx-2 my-2 rounded bg-blue-300 items-right"
+          >
+            Go Next
+          </button>
+          <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
+        </>
+      )}
       <div className="w-[1280px] h-[720px] bg-white">{pages[current]}</div>
       <div className="w-[1280px] h-[200px] bg-black relative"></div>
     </>

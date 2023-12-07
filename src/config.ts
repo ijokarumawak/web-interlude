@@ -4,7 +4,7 @@ const config = {
   transTimePage1: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE1 ?? '24'),
   transTimePage2: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE2 ?? '24'),
   transTimePage3: parseInt(process.env.NEXT_PUBLIC_TRANS_TIME_PAGE3 ?? '24'),
-  debug: !!process.env.NEXT_PUBLIC_DEBUG_MODE,
+  debug: !!process.env.NEXT_PUBLIC_DEBUG,
 } as const
 
 export default config
