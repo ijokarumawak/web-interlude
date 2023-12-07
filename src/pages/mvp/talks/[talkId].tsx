@@ -1,6 +1,6 @@
 import AudioPlayer from '@/components/AudioPlayer'
 import Page1 from '@/components/Page1'
-import Page2 from '@/components/Page2'
+import Page2, { AvatarPreLoader } from '@/components/Page2'
 import Page3 from '@/components/Page3'
 import Page4 from '@/components/Page4'
 import { useGetTalksAndTracks } from '@/components/hooks/useGetTalksAndTracks'
@@ -45,6 +45,7 @@ function Pages() {
           <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
         </>
       )}
+      <AvatarPreLoader view={view}></AvatarPreLoader>
       <div className="w-[1280px] h-[720px] bg-white">{pages[current]}</div>
       <div className="w-[1280px] h-[200px] bg-black relative"></div>
     </>

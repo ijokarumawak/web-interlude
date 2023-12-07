@@ -77,13 +77,13 @@ function Track({ talk, track, speakers }: TrackProps) {
     return <></>
   }
   const companies = new Set(speakers.map((s) => s.company))
-  const avatorUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
+  const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
   return (
     <div className="flex flex-row items-center text-gray-600 w-[600px] h-[200px]">
       <div className="basis-1/3">
         <img
-          src={avatorUrl}
-          alt={'avator'}
+          src={avatarUrl}
+          alt={'avatar'}
           className="w-[120px] h-[120px] ml-auto mr-5 rounded-full"
         />
       </div>
@@ -95,6 +95,27 @@ function Track({ talk, track, speakers }: TrackProps) {
         <div className="text-md mb-3">{Array.from(companies).join(', ')}</div>
         <div className="text-md my-3">{talk.title}</div>
       </div>
+    </div>
+  )
+}
+
+export function AvatarPreLoader({ view }: Props) {
+  if (!view) {
+    return <></>
+  }
+  const nextTalks = view.talksInNextSlot()
+  const talk = Object.values(nextTalks)[0]
+  if (!talk) {
+    return <></>
+  }
+  return (
+    <div className="hidden">
+      {view.allTracks.map((track, i) => {
+        const talk = nextTalks[track.name]
+        const speakers = view.speakersOf(talk.id)
+        const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
+        return <img key={i} rel="preload" src={avatarUrl} />
+      })}
     </div>
   )
 }
