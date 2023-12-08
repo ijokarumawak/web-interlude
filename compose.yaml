@@ -8,8 +8,11 @@ services:
     ports:
     - 3000:3000
   proxy:
-    image: hrk091/simple-proxy
+    image: hrk091/simple-proxy:v0.0.1
     ports:
     - 8888:8888
     environment:
       TARGET_URL: https://event.cloudnativedays.jp/
+      CACHE_DIR: /mnt/cache
+    volumes:
+    - ./cache:/mnt/cache
