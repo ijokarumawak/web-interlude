@@ -51,7 +51,7 @@ function Body({ view }: Props) {
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[80px] left-[120px] w-[850px] relative bg-white">
+      <div className="top-[80px] left-[120px] w-[850px] relative longshadow">
         <div className="text-center py-1 text-xl text-white bg-slate-400">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>
