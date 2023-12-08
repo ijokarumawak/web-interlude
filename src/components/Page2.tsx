@@ -18,11 +18,11 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <div className="h-[120px]">
+      <div className="h-[150px]">
         <PageHeader view={view} />
       </div>
 
-      <div className="h-[600px]">
+      <div className="h-full">
         <Body view={view} />
       </div>
     </div>
@@ -39,13 +39,13 @@ function Body({ view }: Props) {
     return <></>
   }
   return (
-    <div className="py-6">
-      <div className="basis-1/2 text-left w-[450px] bg-sky-500 pr-2 py-6">
+    <div className="my-20">
+      <div className="text-left w-[650px] bg-sky-500 pr-3 py-8">
         <div className="text-right text-white font-bold font-['Open_Sans'] text-3xl">
           UPCOMING SESSION
         </div>
       </div>
-      <div className="basis-1/2 ml-[70px] mt-7 text-2xl">
+      <div className="basis-1/2 ml-[100px] mt-7 text-xl">
         {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)} の各セッション
       </div>
       <div className="grid grid-cols-2 gap8">
@@ -79,21 +79,21 @@ function Track({ talk, track, speakers }: TrackProps) {
   const companies = new Set(speakers.map((s) => s.company))
   const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
   return (
-    <div className="flex flex-row items-center text-gray-600 w-[600px] h-[200px]">
+    <div className="flex flex-row items-center text-gray-800 w-[850px] h-[300px]">
       <div className="basis-1/3">
         <img
           src={avatarUrl}
           alt={'avatar'}
-          className="w-[120px] h-[120px] ml-auto mr-5 rounded-full"
+          className="w-[180px] h-[180px] ml-auto mr-5 rounded-full"
         />
       </div>
       <div className="basis-2/3">
-        <div className="text-2xl my-3">Track {track.name}</div>
-        <div className="text-xl font-bold mt-3">
+        <div className="text-2xl my-5">Track {track.name}</div>
+        <div className="text-xl font-bold">
           {talk.speakers.map((s) => s.name).join(', ')}
         </div>
-        <div className="text-md mb-3">{Array.from(companies).join(', ')}</div>
-        <div className="text-md my-3">{talk.title}</div>
+        <div className="text-base mb-3">{Array.from(companies).join(', ')}</div>
+        <div className="text-base my-3">{talk.title}</div>
       </div>
     </div>
   )

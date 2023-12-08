@@ -46,8 +46,8 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1280px] h-[720px] bg-white">{pages[current]}</div>
-      <div className="w-[1280px] h-[200px] bg-black relative"></div>
+      <div className="w-[1920px] h-[1080px] bg-white">{pages[current]}</div>
+      <div className="w-[1280px] h-[300px] bg-black relative"></div>
     </>
   )
 }

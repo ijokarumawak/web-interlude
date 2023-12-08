@@ -31,14 +31,14 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <div className="h-[120px]">
+      <div className="h-[150px]">
         <PageHeader view={view} />
       </div>
       <Image
         src={images[count]}
         alt={'information'}
-        width={1280}
-        height={720}
+        width={1920}
+        height={1080}
         className="m-auto"
       />
     </div>
