@@ -18,10 +18,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <div className="h-[150px]">
-        <PageHeader view={view} />
-      </div>
-
+      <PageHeader view={view} />
       <div className="h-full">
         <Body view={view} />
       </div>

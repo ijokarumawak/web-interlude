@@ -18,10 +18,7 @@ export default function Page({ view }: Props) {
 
   return (
     <div>
-      <div className="h-[150px]">
-        <PageHeader view={view} />
-      </div>
-
+      <PageHeader view={view} />
       <div className="h-full">
         <div className="flex flex-row h-full">
           <div className="basis-2/3">
@@ -54,7 +51,7 @@ function Body({ view }: Props) {
           UPCOMING SESSION
         </div>
       </div>
-      <div className="top-[80px] left-[120px] w-[850px] relative longshadow">
+      <div className="top-[80px] left-[120px] w-[850px] relative bg-white">
         <div className="text-center py-1 text-xl text-white bg-slate-400">
           {getTimeStr(talk.startTime)} - {getTimeStr(talk.endTime)}
         </div>

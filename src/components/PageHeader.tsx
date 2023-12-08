@@ -18,7 +18,7 @@ export default function Header({ view }: Props) {
     return <div>No talks left.</div>
   }
   return (
-    <div className="flex flex-row items-center h-full text-gray-600 bg-gray-100">
+    <div className="flex flex-row items-center h-[180px] text-white">
       <div className="basis-1/3">
         <div className="text-2xl  text-center">
           Track {view.selectedTrack.name}
