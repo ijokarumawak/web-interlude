@@ -46,7 +46,9 @@ function Pages() {
       )}
       <AudioPlayer src={audioSrc} shouldPlay={shouldPlayAudio} />
       <AvatarPreLoader view={view}></AvatarPreLoader>
-      <div className="w-[1920px] h-[1080px] bg-[url('/cndt2023/background.png')]">{pages[current]}</div>
+      <div className="w-[1920px] h-[1080px] bg-[url('/cndt2023/background.png')]">
+        {pages[current]}
+      </div>
       <div className="w-[1280px] h-[300px] bg-black relative"></div>
     </>
   )
