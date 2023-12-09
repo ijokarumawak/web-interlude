@@ -3,14 +3,18 @@
 import { Inter } from 'next/font/google'
 import React from 'react'
 import { useState } from 'react'
-import { ContentContextType, ContentContext, SupportedContents } from './context'
+import {
+  ContentContextType,
+  ContentContext,
+  SupportedContents,
+} from './context'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Layout({
   children,
   animation,
-  videoPlaylist
+  videoPlaylist,
 }: {
   children: React.ReactNode
   animation: React.ReactNode

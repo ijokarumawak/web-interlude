@@ -8,8 +8,8 @@ RUN npm install
 FROM node:20.5.1-slim
 WORKDIR /base
 RUN apt-get update && apt-get install -y tini \ 
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 COPY --link --from=base /base ./
 COPY --link . .
 RUN npm run build
