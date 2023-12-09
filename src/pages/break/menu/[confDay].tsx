@@ -1,5 +1,6 @@
 import { useGetTalksAndTracksForMenu } from '@/components/hooks/useGetTalksAndTracks'
 import { MenuView } from '@/components/models/talkView'
+import config from '@/config'
 import { Talk } from '@/generated/dreamkast-api.generated'
 import { getTimeStr } from '@/utils/time'
 import { Optional } from '@/utils/types'
@@ -8,7 +9,8 @@ import { useRouter } from 'next/router'
 
 export default function Index() {
   const router = useRouter()
-  const { eventAbbr, confDay } = router.query
+  const { confDay } = router.query
+  const { eventAbbr } = config
 
   const { isLoading, view } = useGetTalksAndTracksForMenu(
     eventAbbr as Optional<string>,
@@ -69,7 +71,7 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
     return <div />
   }
   return (
-    <Link className="col-span-1 hover:underline" href={`/mvp/talks/${talk.id}`}>
+    <Link className="col-span-1 hover:underline" href={`/break/talks/${talk.id}`}>
       <div>{talk.id}</div>
       <div>{talk.title}</div>
       <div>{talk.speakers[0].name}</div>
