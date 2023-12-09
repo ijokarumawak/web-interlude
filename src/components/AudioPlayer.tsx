@@ -8,9 +8,6 @@ type Props = {
 
 export default function AudioPlayer({ src, shouldPlay }: Props) {
   const audioRef = useRef<HTMLAudioElement>(null)
-  useEffect(() => {
-    return () => audioRef.current!.pause()
-  }, [])
 
   useEffect(() => {
     if (!audioRef.current) {

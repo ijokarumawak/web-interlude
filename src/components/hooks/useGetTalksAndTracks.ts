@@ -4,10 +4,12 @@ import {
   useGetApiV1TalksQuery,
   useGetApiV1TracksQuery,
   useGetApiV1SpeakersQuery,
+  useGetApiV1EventsByEventAbbrQuery,
 } from '@/generated/dreamkast-api.generated'
 import { Optional } from '@/utils/types'
 import { useEffect, useMemo, useState } from 'react'
-import { TalkView } from '@/components/models/talkView'
+import { MenuView, TalkView } from '@/components/models/talkView'
+import { skip } from 'node:test'
 
 export const useGetTalksAndTracks = (talkId: Optional<string>) => {
   const talkResult = useGetTalk(talkId)
@@ -44,6 +46,70 @@ export const useGetTalksAndTracks = (talkId: Optional<string>) => {
       tracksResult.isLoading ||
       speakersResult.isLoading,
     view,
+  }
+}
+
+export const useGetTalksAndTracksForMenu = (
+  eventAbbr: Optional<string>,
+  dayNum: Optional<string>
+) => {
+  const event = useGetEvent(eventAbbr)
+  const confDayId = useMemo(() => {
+    if (!event.data?.conferenceDays) {
+      return null
+    }
+    if (event.data.conferenceDays.length === 0) {
+      return null
+    }
+    if (!dayNum) {
+      return null
+    }
+    console.log(event.data!.conferenceDays!)
+    return event.data!.conferenceDays![parseInt(dayNum)].id
+  }, [event.data])
+  const talksResult = useGetTalks(confDayId)
+  const tracksResult = useGetTracks()
+  const speakersResult = useGetSpeakers()
+
+  const view: Optional<MenuView> = useMemo(() => {
+    if (talksResult.data && tracksResult.data && speakersResult.data) {
+      return new MenuView(
+        talksResult.data,
+        tracksResult.data,
+        speakersResult.data
+      )
+    }
+    return null
+  }, [talksResult.data, tracksResult.data, speakersResult.data])
+
+  return {
+    isLoading:
+      talksResult.isLoading ||
+      tracksResult.isLoading ||
+      speakersResult.isLoading,
+    view,
+  }
+}
+
+export const useGetEvent = (confName: Optional<string>) => {
+  const [_, setError] = useState()
+
+  const { data, isLoading, isError, error } = useGetApiV1EventsByEventAbbrQuery(
+    { eventAbbr: confName },
+    { skip: !confName }
+  )
+
+  useEffect(() => {
+    if (isError) {
+      setError(() => {
+        throw error
+      })
+    }
+  }, [isError, error])
+
+  return {
+    data,
+    isLoading,
   }
 }
 

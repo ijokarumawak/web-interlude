@@ -1,5 +1,7 @@
 import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
-import { getTime } from '@/utils/time'
+import { getTime, getTimeStr } from '@/utils/time'
+import { Optional } from '@/utils/types'
+import { Dayjs } from 'dayjs'
 
 export class TalkView {
   readonly selectedTalk: Talk
@@ -66,5 +68,69 @@ export class TalkView {
     return this.speakers.filter((speaker) =>
       talk.speakers.map((s) => s.id).includes(speaker.id)
     )
+  }
+}
+
+type TimeSlot = {
+  startTime: string
+  endTime: string
+}
+
+export class MenuView {
+  readonly allTalks: Talk[]
+  readonly allTracks: Track[]
+  readonly speakers: Speaker[]
+
+  constructor(talks: Talk[], tracks: Track[], speakers: Speaker[]) {
+    this.allTalks = Array.from(talks).sort((a, b) => a.id - b.id)
+    this.allTracks = Array.from(tracks).sort((a, b) => a.id - b.id)
+    this.speakers = Array.from(speakers).sort((a, b) => a.id - b.id)
+  }
+
+  private allTalksOnTimeTable(): Talk[] {
+    return this.allTalks.filter((talk) => talk.showOnTimetable)
+  }
+
+  timeSlots(): TimeSlot[] {
+    const timeSlots: Record<number, TimeSlot> = {}
+    this.allTalksOnTimeTable().forEach((talk) => {
+      const ts = getTime(talk.startTime).unix()
+      timeSlots[ts] = {
+        startTime: talk.startTime,
+        endTime: talk.endTime,
+      }
+    })
+    return Object.values(timeSlots).sort((a, b) =>
+      getTime(a.startTime).diff(getTime(b.startTime))
+    )
+  }
+
+  getTalksOnTimeSlot(timeSlot: TimeSlot): Optional<Talk>[] {
+    const trackMap = this.allTracks.reduce(
+      (map, track, idx) => {
+        map[track.id] = idx
+        return map
+      },
+      {} as Record<number, number>
+    )
+
+    // set talks length to track length and fill with null
+    const talks: Optional<Talk>[] = Array.from(
+      { length: this.allTracks.length },
+      () => null
+    )
+
+    this.allTalksOnTimeTable()
+      .filter((talk) => {
+        return (
+          timeSlot.startTime === talk.startTime &&
+          timeSlot.endTime === talk.endTime
+        )
+      })
+      .forEach((talk) => {
+        talks[trackMap[talk.trackId]] = talk
+      })
+
+    return talks
   }
 }
