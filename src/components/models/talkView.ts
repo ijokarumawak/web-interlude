@@ -1,6 +1,7 @@
 import { Speaker, Talk, Track } from '@/generated/dreamkast-api.generated'
 import { getTime } from '@/utils/time'
 import { Optional } from '@/utils/types'
+import dayjs, { Dayjs } from 'dayjs'
 
 export class TalkView {
   readonly selectedTalk: Talk
@@ -50,16 +51,27 @@ export class TalkView {
   // 次のSlotの全TrackのTalk
   talksInNextSlot(): Record<string, Talk> {
     // NOTE: 午前中にこのmethodを使うと、キーノートをしているTrack以外は全て午後イチのTalkが出力される
-    return this.allTracks.reduce(
+    let startTime: Dayjs = dayjs.tz('2099-10-09T10:00:00+09:00')
+    const nextTalks = this.allTracks.reduce(
       (talks, track) => {
         const nextTalks = this.talksLeftInTrack(track.id)
         if (nextTalks.length > 0) {
           talks[track.name] = nextTalks[0]
+          startTime =
+            startTime > getTime(nextTalks[0].startTime)
+              ? getTime(nextTalks[0].startTime)
+              : startTime
         }
         return talks
       },
       {} as Record<string, Talk>
     )
+    for (const track in nextTalks) {
+      if (getTime(nextTalks[track].startTime).isAfter(startTime)) {
+        delete nextTalks[track]
+      }
+    }
+    return nextTalks
   }
 
   speakersOf(talkId: number): Speaker[] {
