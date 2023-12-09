@@ -34,6 +34,16 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
   }
   return (
     <div className="text-white w-full p-10">
+      <div className="flex flex-row my-5 bg-gray-900 py-3">
+        <div className="basis-1/12">
+          <div className="text-lg">Slot</div>
+        </div>
+        <div className={'basis-11/12 grid grid-cols-4 gap-4'}>
+          {view?.allTracks.map((track, i) => (
+            <div key={i} className="text-lg">{track.name}</div>
+          ))}
+        </div>
+      </div>
       {view.timeSlots().map((slot, i) => {
         return (
           <div className="flex flex-row my-5" key={i}>
