@@ -48,6 +48,9 @@ function Body({ view }: Props) {
       <div className="grid grid-cols-2 gap8">
         {view.allTracks.map((track) => {
           const talk = nextTalks[track.name]
+          if (!talk) {
+            return <></>
+          }
           const speakers = view.speakersOf(talk.id)
           return (
             <Track
@@ -109,6 +112,9 @@ export function AvatarPreLoader({ view }: Props) {
     <div className="hidden">
       {view.allTracks.map((track, i) => {
         const talk = nextTalks[track.name]
+        if (!talk) {
+          return <></>
+        }
         const speakers = view.speakersOf(talk.id)
         const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
         return <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
