@@ -9,7 +9,6 @@ import {
 import { Optional } from '@/utils/types'
 import { useEffect, useMemo, useState } from 'react'
 import { MenuView, TalkView } from '@/components/models/talkView'
-import { skip } from 'node:test'
 
 export const useGetTalksAndTracks = (talkId: Optional<string>) => {
   const talkResult = useGetTalk(talkId)
@@ -66,7 +65,7 @@ export const useGetTalksAndTracksForMenu = (
     }
     console.log(event.data!.conferenceDays!)
     return event.data!.conferenceDays![parseInt(dayNum)].id
-  }, [event.data])
+  }, [event.data, dayNum])
   const talksResult = useGetTalks(confDayId)
   const tracksResult = useGetTracks()
   const speakersResult = useGetSpeakers()
@@ -95,7 +94,7 @@ export const useGetEvent = (confName: Optional<string>) => {
   const [_, setError] = useState()
 
   const { data, isLoading, isError, error } = useGetApiV1EventsByEventAbbrQuery(
-    { eventAbbr: confName },
+    { eventAbbr: confName! },
     { skip: !confName }
   )
 

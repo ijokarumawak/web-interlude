@@ -111,7 +111,7 @@ export function AvatarPreLoader({ view }: Props) {
         const talk = nextTalks[track.name]
         const speakers = view.speakersOf(talk.id)
         const avatarUrl = speakers[0].avatarUrl || '/cndt2023/trademark.png'
-        return <img key={i} rel="preload" src={avatarUrl} />
+        return <img key={i} rel="preload" src={avatarUrl} alt="for preload" />
       })}
     </div>
   )

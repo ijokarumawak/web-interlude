@@ -40,7 +40,9 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
         </div>
         <div className={'basis-11/12 grid grid-cols-4 gap-4'}>
           {view?.allTracks.map((track, i) => (
-            <div key={i} className="text-lg">{track.name}</div>
+            <div key={i} className="text-lg">
+              {track.name}
+            </div>
           ))}
         </div>
       </div>
