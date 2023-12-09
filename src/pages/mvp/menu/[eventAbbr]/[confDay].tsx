@@ -33,7 +33,7 @@ function TalkMenu({ view }: { view: Optional<MenuView> }) {
     return <></>
   }
   return (
-    <div className="text-white w-full m-10">
+    <div className="text-white w-full p-10">
       {view.timeSlots().map((slot, i) => {
         return (
           <div className="flex flex-row my-5" key={i}>
