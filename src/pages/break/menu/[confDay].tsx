@@ -71,7 +71,10 @@ function TalkMenuItem({ talk }: { talk: Optional<Talk> }) {
     return <div />
   }
   return (
-    <Link className="col-span-1 hover:underline" href={`/break/talks/${talk.id}`}>
+    <Link
+      className="col-span-1 hover:underline"
+      href={`/break/talks/${talk.id}`}
+    >
       <div>{talk.id}</div>
       <div>{talk.title}</div>
       <div>{talk.speakers[0].name}</div>
