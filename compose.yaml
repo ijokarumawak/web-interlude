@@ -13,6 +13,6 @@ services:
     - 8888:8888
     environment:
       TARGET_URL: https://event.cloudnativedays.jp/
-      CACHE_DIR: /mnt/cache
+      # CACHE_DIR: /mnt/cache
     volumes:
     - ./cache:/mnt/cache
