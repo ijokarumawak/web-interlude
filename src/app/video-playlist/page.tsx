@@ -10,7 +10,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm01-gmo.mp4',
+        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cndt2023/cm1.mp4',
         type: 'video/mp4',
       },
     ],
@@ -18,7 +18,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm02-line.mp4',
+        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cndt2023/cm2.mp4',
         type: 'video/mp4',
       },
     ],
@@ -26,15 +26,7 @@ const playlist: Playlist = [
   {
     sources: [
       {
-        src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm03-mirantis.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
-  {
-    sources: [
-      {
-        src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm04-legalforce.mp4',
+        src: 'https://web-intermission.s3.isk01.sakurastorage.jp/cndt2023/cm3.mp4',
         type: 'video/mp4',
       },
     ],
