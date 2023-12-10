@@ -36,13 +36,13 @@ function Body({ view }: Props) {
     return <></>
   }
   return (
-    <div className="my-20">
+    <div className="my-20 font-ryo-gothic-plusn">
       <div className="text-left w-[450px] bg-Magenta-2023 pr-3 py-8">
         <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSION
         </div>
       </div>
-      <div className="basis-1/2 ml-[100px] mt-7 text-xl">
+      <div className="basis-1/2 ml-[100px] mt-7 text-xl font-din-2014 font-light">
         {getTimeStr(talk.startTime)}-{getTimeStr(talk.endTime)} の各セッション
       </div>
       <div className="grid grid-cols-2 gap8">
