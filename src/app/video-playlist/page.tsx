@@ -31,14 +31,6 @@ const playlist: Playlist = [
       },
     ],
   },
-  {
-    sources: [
-      {
-        src: 'https://dreamkast-public-bucket.s3.ap-northeast-1.amazonaws.com/videos/cm/modified_cm04-legalforce.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  },
 ]
 
 export default function Page() {
