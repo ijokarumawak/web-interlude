@@ -37,8 +37,8 @@ function Body({ view }: Props) {
   }
   return (
     <div className="my-20">
-      <div className="text-left w-[650px] bg-sky-500 pr-3 py-8">
-        <div className="text-right text-white font-bold font-['Open_Sans'] text-3xl">
+      <div className="text-left w-[450px] bg-Magenta-2023 pr-3 py-8">
+        <div className="text-right text-white font-bold font-din-2014 tracking-wide text-1.5xl">
           UPCOMING SESSION
         </div>
       </div>

@@ -34,6 +34,10 @@ function Pages() {
   }
   return (
     <>
+      <div>
+        <link rel="stylesheet" href="https://use.typekit.net/egz6rzg.css" />
+        <link rel="stylesheet" href="https://use.typekit.net/hbv7ezy.css" />
+      </div>
       {config.debug && (
         <>
           <button
