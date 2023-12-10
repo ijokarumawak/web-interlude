@@ -111,7 +111,7 @@ function Side({ view }: Props) {
           {keyNoteTalks.map((talk) => (
             <div
               key={talk.id}
-              className="text-center text-white text-sm h-[30px] font-bold"
+              className="text-center text-white text-sm h-min-[30px] font-bold"
             >
               {trim(talk.title, 80)}
             </div>
